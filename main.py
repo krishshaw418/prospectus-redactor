@@ -1,10 +1,16 @@
 from docx import Document
 from parser import iter_paragraphs
 from run_mapper import RunMapper
+from hybrid_detector import HybridDetector
+from entity_filter import EntityFilter
+from entity_normalizer import EntityNormalizer
 
 def read_docx(file_path):
 
     doc = Document(file_path)
+    detector = HybridDetector()
+    filter = EntityFilter()
+    normalizer = EntityNormalizer()
 
     for ref in iter_paragraphs(doc):
 
@@ -13,17 +19,23 @@ def read_docx(file_path):
 
         mapper = RunMapper(ref)
 
+        entities = detector.detect(mapper.text)
+        entities = normalizer.normalize(entities)
+        entities = filter.filter(entities)
+
+        if not entities:
+            continue
+
         print("=" * 80)
         print(mapper.text)
 
-        for run_info in mapper.run_infos:
-            print(run_info)
+        for entity in entities:
 
-        print("\nMatched Runs:")
-        matches = mapper.find_runs(18, 25)
+            print(entity)
 
-        for match in matches:
-            print(match)
+        # count += 1
 
-        break
+        # if count == 10:
+        #     break
+
 read_docx('./input/Red_Herring_Prospectus.docx')
