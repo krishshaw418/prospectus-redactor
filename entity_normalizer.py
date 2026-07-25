@@ -7,6 +7,7 @@ class EntityNormalizer:
         "IP_ADDRESS": "IP_ADDRESS",
         "US_SSN": "SSN",
         "CREDIT_CARD": "CREDIT_CARD",
+        "DATE_OF_BIRTH": "DATE_OF_BIRTH",
     }
 
     COMPANY_SUFFIXES = (

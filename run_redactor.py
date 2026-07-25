@@ -10,6 +10,8 @@ class RunRedactor:
         "PHONE_NUMBER": "[PHONE]",
         "SSN": "[SSN]",
         "IP_ADDRESS": "[IP]",
+        "DATE_OF_BIRTH": "[DOB]",
+        "CREDIT_CARD": "[CARD]",
     }
 
     def redact(self, mapper: RunMapper, entities):
